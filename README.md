@@ -1,0 +1,1 @@
+# django-kys-school-project
