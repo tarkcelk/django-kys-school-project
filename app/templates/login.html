@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<body>
+    <form class="book-imaged-background-container" method="POST" action="login">
+        {% csrf_token %}
+        <div class="signup-form">
+            <h1 style="text-align: center;">Giriş Yap</h1>
+            <div>
+                <label>Email</label>
+                <input type="email" class="form-control" name="email"/>
+            </div>
+
+            <div>
+                <label>Şifre</label>
+                <input type="password" class="form-control" name="password"/>
+            </div>
+ 
+            <button type="submit" class="btn btn-primary mt-5" style="width:100%">Giriş</button>
+            <label style="color: red;font-size: 16px !important;">
+                {{ exceptionMessage }}
+            </label>
+        </div>
+    </form>
+</body>
+{% endblock %}
+</html>

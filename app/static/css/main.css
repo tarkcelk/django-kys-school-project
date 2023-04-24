@@ -1,0 +1,126 @@
+:root {
+    --fontFamily: 'Times New Roman', Times, serif;
+    --themeColor: #2e587826 !important;
+}
+
+#logo {
+    font-family: var(--fontFamily);
+    font-size: 24px;
+    border: 1px solid white;
+    border-radius: 50%;
+    padding: 8px;
+    background-color: #587161;
+    color: white;
+}
+.app-navbar{
+    background-color:var(--themeColor);
+}
+
+a, label, text, button, input {
+  font-family: var(--fontFamily) !important;
+}
+
+.book-imaged-background-container {
+    background-image: url('../images/book-background.png');
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.75);
+    background-blend-mode: overlay;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    overflow: auto;
+}
+
+.add-book-form-container {
+    width: 800px;
+    border-radius: 5%;
+    display: flex;
+    flex-direction: column;
+    padding: 36px;
+}
+
+.add-book-form-item-label {
+    font-size: 24px;
+}
+
+.library-books-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex:content;
+    justify-content: center;
+    margin-top: 12px;
+}
+
+.library-book-container {
+  border: 3px solid rgb(120, 98, 19);
+  border-radius: 10px;
+  padding: 12px;
+  margin-left: 18px;
+  margin-top: 8px;
+  height: fit-content;
+  display: inline-block;
+}
+
+.library-book-container:hover {
+  background-color: rgba(254, 223, 185, 0.588);
+}
+
+.library-book-image {
+  width:350px;
+  height:350px;
+  display: flex;
+}
+
+.library-book-image-bigger {
+    width:550px;
+    height:550px;
+    display: flex;
+  }
+
+.row-between {
+    display: flex; 
+    flex-direction: row; 
+    justify-content: space-between;
+}
+
+.nav-link {
+    font-size: 24px !important;
+}
+
+.libray-book-name {
+    font-size: x-large !important;
+    font-weight: bold !important;
+    display: block;
+    text-align: center;
+}
+
+.libray-book-barrow-button {
+    width:100%
+}
+
+.barrow-a-book-form-container {
+    display: flex;
+    margin-top: 24px;
+    flex-direction: column;
+}
+
+.signup-form {
+    margin-top: 24px;
+    height: fit-content;
+    background-color: #c2c1ef73;
+    border-radius: 14px;
+    padding: 14px;
+    border: 1px solid #0d6efd;
+}
+
+.signup-form label, button {
+    font-size: 24px !important;
+    margin-top: 24px;
+}
+
+.signup-form input {
+    width: 350px;
+}

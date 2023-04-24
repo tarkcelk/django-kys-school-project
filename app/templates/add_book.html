@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+<body>
+    <form class="book-imaged-background-container" method="POST" action="add_book" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="add-book-form-container">
+            <h1 style="text-align: center;">Kitap Ekle</h1>
+            <div>
+                <label class="add-book-form-item-label">Kitap Adı</label>
+                <div>{{form.name}}</div>
+            </div> 
+
+            <div>
+                <label class="add-book-form-item-label">Yazar</label>
+                <div>{{form.author}}</div>
+            </div>
+
+            <div>
+                <label class="add-book-form-item-label">Kategori</label>
+                <div>{{form.category}}</div>
+            </div>
+
+            <div>
+                <label class="add-book-form-item-label">Sayfa Sayısı</label>
+                <div>{{form.number_of_pages}}</div>
+            </div>
+
+            <div>
+                <label class="add-book-form-item-label">Adet Sayısı</label>
+                <div>{{form.quantity}}</div>
+            </div>
+
+            <div>
+                <label class="add-book-form-item-label">Özet</label>
+                <div>{{form.summary}}</div>
+            </div>
+
+            <div>
+                <label class="add-book-form-item-label">Tarih</label>
+                    <div>
+                        <input type="date" class="form-control"  name="date" required/>
+                    </div>
+            </div>
+
+            <div>
+                <label class="add-book-form-item-label">Görsel</label>
+                    <div>
+                        {{form.image}}
+                    </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-5">
+                Kaydet
+            </button>
+        </div>
+    </form>  
+</body>
+{% endblock %}
+</html>

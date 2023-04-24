@@ -1,0 +1,73 @@
+<title>Kütüphane Yönetim Sistemi</title>
+{% extends 'base.html' %}
+
+<body> 
+  {% block content %}
+  <script>
+    function onSearch({value}) {
+      let books = []
+      books = JSON.parse("{{json_books | escapejs}}")
+      const searchText = value.trim()
+      if (!books || !books.length) return;
+      let searchedBooksHTML = '';
+      books.filter(book => {
+        const fields = book.fields;
+        if (fields.name.includes(searchText) || fields.author.includes(searchText)) {
+          searchedBooksHTML += getBookHTML(book);
+        }
+      })
+      if (!searchedBooksHTML?.length) return;
+      const booksContainer = document.getElementById('books-container');
+      booksContainer.setHTML(searchedBooksHTML)
+    }
+
+    function getBookHTML({fields, pk}) {
+      return `
+        <div class="library-book-container" >
+          <img src="./media/${fields.image}" alt="book-image" class="library-book-image"/>
+          <label class="libray-book-name">${fields.name}</label>
+          <div class="row-between">
+            <label>${fields.author}</label>
+            <label>${fields.category}</label>
+          </div>
+          <div class="row-between">
+            <label>${fields.number_of_pages} sayfa</label>
+            <label>${fields.date?.split?.('-')?.[0]}</label>
+          </div>
+          ${fields.quantity > 0 ? '<a href="barrow_a_book/'+pk+'" class="btn btn-primary libray-book-barrow-button">ÖDÜNÇ VER ('+fields.quantity+' adet)</a>': '<a class="btn btn-secondary libray-book-barrow-button" disabled>STOKTA YOK</a>'}
+        </div>  ` 
+    }
+  </script>
+  
+  <input onkeyup="onSearch(this)" type="text" class="form-control" placeholder="Lütfen bir kitap ismi veya yazar giriniz." style="border: 1px solid black;"/>
+  <div class="book-imaged-background-container">
+    <div class="library-books-container" id="books-container">
+    {%for book in books%}
+      <div class="library-book-container" >
+          <img src="./media/{{book.image}}" alt="book-image" class="library-book-image"/>
+          <label class="libray-book-name">{{ book.name }}</label>
+          <div class="row-between">
+            <label>{{ book.author }}</label>
+            <label>{{ book.category }}</label>
+          </div>
+          <div class="row-between">
+            <label>{{ book.number_of_pages }} sayfa</label>
+            <label>{{ book.date|date:'Y' }}</label>
+          </div>
+          {% if book.quantity > 0%}
+            <a href="barrow_a_book/{{book.id}}" class="btn btn-primary libray-book-barrow-button">
+              ÖDÜNÇ VER ({{ book.quantity }} adet)
+            </a>
+          {% endif %}
+
+          {% if book.quantity == 0%}
+            <a class="btn btn-secondary libray-book-barrow-button" disabled>
+              STOKTA YOK
+            </a>
+          {% endif %}
+        </div>   
+    {% endfor %}
+    </div>
+  {% endblock %}
+</div> 
+</body>

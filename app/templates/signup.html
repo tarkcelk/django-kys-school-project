@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<body>
+    <form class="book-imaged-background-container" method="POST" action="signup">
+        {% csrf_token %}
+        <div class="signup-form">
+            <h1 style="text-align: center;">Kayıt</h1>
+            <div>
+                <label>Adı Soyadı</label>
+                <input type="text" class="form-control" name="name_surname"/>
+            </div>
+
+            <div>
+                <label>Email</label>
+                <input type="email" class="form-control" name="email"/>
+            </div>
+
+            <div>
+                <label>Şifre</label>
+                <input type="password" class="form-control" name="password"/>
+            </div>
+ 
+            <button type="submit" class="btn btn-primary mt-5" style="width:100%">Onayla</button>
+        </div>
+    </form>
+</body>
+{% endblock %}
+</html>

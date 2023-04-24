@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block content %}
+<body>
+    <div class="book-imaged-background-container" style="display: block;" >
+        <h1 class="mt-5" style="text-align: center;">Ödünç Alınan Kitaplar</h1>
+        <div class="p-5">
+            <table class="table table-light" aria-describedby="members_table" id="table_id" >  
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Kitap Adı</th>
+                        <th scope="col">Ad Soyad</th>
+                        <th scope="col">T.C Kimlik No</th>
+                        <th scope="col">Telefon Numarası</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">İade Tarihi</th>
+                        <th scope="col">Oluşturulma Tarihi</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for barrowed_book in barrowed_books%}
+                    
+                        <tr>
+                            <td>{{ barrowed_book.book_id.name }}</td>
+                            <td>{{ barrowed_book.member_id.name_surname }}</td>
+                            <td>{{ barrowed_book.member_id.identity_number }}</td>
+                            <td>{{ barrowed_book.member_id.phone_number }}</td>
+                            <td>{{ barrowed_book.member_id.email }}</td>
+                            <td>{{ barrowed_book.returns_at|date:'d M Y' }}</td>
+                            <td>{{ barrowed_book.created_at|date:'d M Y' }}</td>
+                            <td>
+                                <form method="post" action="./barrowed_books/{{barrowed_book.id}}">
+                                    {% csrf_token %}
+                                    <button class="btn btn-primary" type="submit">
+                                    {% if barrowed_book.is_returned == 1 %}
+                                        Teslim Alındı
+                                    {% endif %}
+                                    {% if barrowed_book.is_returned == 0 %}
+                                        Teslim Al
+                                    {% endif %}
+                                    </button>
+                                </form>
+                            </td>
+                        </tr> 
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+    <script>
+        $(function() {
+            $("#table_id").DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.10.15/i18n/French.json'
+                }
+            });
+        });
+    </script>
+</body>
+{% endblock %}
+</html> 

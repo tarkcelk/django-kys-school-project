@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<body>
+    <form class="book-imaged-background-container" method="POST" action="add_member" enctype="multipart/form-data">
+        
+        {% csrf_token %}
+        <div class="add-book-form-container">
+            <h1 style="text-align: center;">Üye Ekle</h1>
+            {{ form }}
+            <button type="submit" class="btn btn-primary mt-5">
+                Kaydet
+            </button>
+            <label style="color: red;">
+                {{ exceptionMessage }}
+            </label>
+        </div>
+    </form>  
+</body>
+{% endblock %}
+</html>

@@ -1,0 +1,35 @@
+<title>Kütüphane Yönetim Sistemi</title>
+{% extends 'base.html' %}
+
+<body>
+  {% block content %}
+    <div class="book-imaged-background-container">
+        <form class="book-imaged-background-container barrow-a-book-form-container" method="post" action="">
+            {% csrf_token %}
+            <h1 style="text-align: center;">{{book.name}}</h1>
+            <img src="../media/{{ book.image }}" alt="book-image" class="library-book-image-bigger"/>
+            <input type="hidden" value="{{book.id}}" name="book_id"/>
+            <div>
+                <label class="add-book-form-item-label">Üye</label>
+                <select class="form-control" required name="member_id">
+                    <option value="0">Üye seçiniz</option>
+                    {% for member in members %}
+                        <option value="{{member.id}}">{{member.identity_number}}  -   {{member.name_surname}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label class="add-book-form-item-label">İade Tarihi</label>
+                <input type="date" class="form-control" required name="returns_at"/>
+            </div> 
+            <button class="btn btn-primary mt-5" type="submit">
+                İşlemi Onayla
+            </button>
+            <label style="color: red;">
+                {{ exceptionMessage }}
+            </label>
+        </form>
+    </div>
+  {% endblock %}
+</div>  
