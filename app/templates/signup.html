@@ -7,22 +7,26 @@
             <h1 style="text-align: center;">Kayıt</h1>
             <div>
                 <label>Adı Soyadı</label>
-                <input type="text" class="form-control" name="name_surname"/>
+                <input type="text" class="form-control" name="name_surname" required/>
             </div>
 
             <div>
                 <label>Email</label>
-                <input type="email" class="form-control" name="email"/>
+                <input type="email" class="form-control" name="email" required/>
             </div>
 
             <div>
                 <label>Şifre</label>
-                <input type="password" class="form-control" name="password"/>
+                <input type="password" class="form-control" name="password" required/>
             </div>
  
             <button type="submit" class="btn btn-primary mt-5" style="width:100%">Onayla</button>
+            <label style="color: red;font-size: 16px !important;">
+                {{ exceptionMessage }}
+            </label>
         </div>
-    </form>
+        
+    </form> 
 </body>
 {% endblock %}
 </html>

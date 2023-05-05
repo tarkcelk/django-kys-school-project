@@ -13,6 +13,9 @@ urlpatterns = [
          views.barrow_a_book, name='barrow_a_book'),
     path('barrowed_books', views.barrowed_books, name='barrowed_books'),
     path('barrowed_books/<int:id>',
-         views.barrowed_books_post, name='barrowed_books_01'),
+         views.barrowed_books_post, name='barrowed_books_post'),
     path('logout', views.logout, name='logout'),
+    path('users', views.users, name='users'),
+    path('users/<int:id>',
+         views.users_update, name='users_update'),
 ]

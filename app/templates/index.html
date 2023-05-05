@@ -4,6 +4,12 @@
 <body> 
   {% block content %}
   <script>
+    function debounce(fn) {
+      let searchTimeout;
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(fn, 1000);
+    };
+
     function onSearch({value}) {
       let books = []
       books = JSON.parse("{{json_books | escapejs}}")
@@ -39,7 +45,7 @@
     }
   </script>
   
-  <input onkeyup="onSearch(this)" type="text" class="form-control" placeholder="Lütfen bir kitap ismi veya yazar giriniz." style="border: 1px solid black;"/>
+  <input onkeyup="debounce(() => onSearch(this))" type="text" class="form-control" placeholder="Lütfen bir kitap ismi veya yazar giriniz." style="border: 1px solid black;"/>
   <div class="book-imaged-background-container">
     <div class="library-books-container" id="books-container">
     {%for book in books%}

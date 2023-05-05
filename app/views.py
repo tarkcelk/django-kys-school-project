@@ -3,8 +3,6 @@ from .forms import BookForm, MemberForm, BarrowedBookForm, SignUpForm
 from .models import Book, Member, BarrowedBook, User
 from django.core import serializers
 
-# Create your views here
-
 
 def is_not_logged_in(request):
     member_id = request.session.get('member_id', '')
@@ -26,23 +24,31 @@ def login(request):
         password = request.POST["password"]
         user = User.objects.filter(
             email=email, password=password).first()
-        if user != 'None':
+        if user != None and user.is_approved:
             request.session['member_id'] = user.id
             request.session['member_name_surname'] = user.name_surname
+            request.session['member_is_admin'] = user.is_admin
             return redirect('index')
         else:
-            return (render(request, 'login.html', {'exceptionMessage': 'Email veya şifre yanlış, tekrar deneyiniz'}))
+            exception_message = 'Email veya şifre yanlış, tekrar deneyiniz' if user == None else 'Onay bekleniyor'
+            return (render(request, 'login.html', {'exceptionMessage':  exception_message}))
     return (render(request, 'login.html'))
 
 
 def logout(request):
     request.session['member_id'] = 'None'
     request.session['member_name_surname'] = 'None'
+    request.session['member_is_admin'] = 'None'
     return redirect('index')
 
 
 def signup(request):
     if request.method == "POST":
+        email = request.POST["email"]
+        user = User.objects.filter(email=email).first()
+        if user != None:
+            form = SignUpForm
+            return (render(request, 'signup.html', {'form': form, 'exceptionMessage': 'Başka bir email deneyiniz.'}))
         form = SignUpForm(request.POST)
         if form.is_valid():
             form = form.save()
@@ -126,3 +132,22 @@ def add_member(request):
     else:
         form = MemberForm
         return (render(request, 'add_member.html', {'form': form}))
+
+
+def users(request):
+    if (is_not_logged_in(request)):
+        return redirect('login')
+    if (request.session['member_is_admin'] == False):
+        return redirect('index')
+    users = User.objects.filter(is_admin=False).all()
+    return (render(request, 'users.html', {'users': users}))
+
+
+def users_update(request, id='None'):
+    if (is_not_logged_in(request)):
+        return redirect('login')
+    if request.method == "POST":
+        instance = User.objects.filter(id=id).first()
+        instance.is_approved = False if instance.is_approved else True
+        instance.save()
+    return redirect('users')

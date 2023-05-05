@@ -38,3 +38,5 @@ class User(models.Model):
     email = models.CharField(max_length=100)
     password = models.CharField(max_length=100)
     created_at = models.DateTimeField(blank=False, auto_now_add=True)
+    is_admin = models.BooleanField(blank=True, default=False)
+    is_approved = models.BooleanField(blank=True, default=False)
